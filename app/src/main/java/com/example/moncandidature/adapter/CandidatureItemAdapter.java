@@ -73,6 +73,8 @@ public class CandidatureItemAdapter extends BaseAdapter {
             status.setText("Interviewed. Wait for the result");
         }else if(rejected){
             status.setText("Rejected");
+        }else{
+            status.setText("Not contacted yet");
         }
 
         return convertView;
