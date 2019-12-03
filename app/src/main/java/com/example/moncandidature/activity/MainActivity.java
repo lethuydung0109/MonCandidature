@@ -1,11 +1,13 @@
-package com.example.moncandidature;
+package com.example.moncandidature.activity;
 
 import android.content.Intent;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
+
+import com.example.moncandidature.R;
+import com.example.moncandidature.activity.LoginActivity;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -14,8 +16,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-//
-  System.out.println("Here I am");
         Intent intent = new Intent(this, LoginActivity.class);
         startActivity(intent);
         finish();

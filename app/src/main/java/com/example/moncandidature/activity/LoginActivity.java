@@ -1,4 +1,4 @@
-package com.example.moncandidature;
+package com.example.moncandidature.activity;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -7,9 +7,11 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.moncandidature.R;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
