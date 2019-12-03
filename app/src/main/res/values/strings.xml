@@ -12,4 +12,8 @@
     <string name="invalid_username">Not a valid username</string>
     <string name="invalid_password">Password must be >5 characters</string>
     <string name="login_failed">"Login failed"</string>
+    <string name="item_default_pName">Post Name</string>
+    <string name="item_default_cName">Company Name</string>
+    <string name="item_default_date_applied">Applied Date</string>
+    <string name="item_default_status">Not contacted</string>
 </resources>

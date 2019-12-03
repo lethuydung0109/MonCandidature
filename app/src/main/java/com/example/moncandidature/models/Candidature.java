@@ -8,11 +8,16 @@ public class Candidature {
     String company;
     Date date_applied;
     Date date_interview;
+    Date date_accepted;
+    boolean rejected;
 
     public Candidature(String pName, String cName, Date dApplied){
         postName = pName;
         company = cName;
         date_applied = dApplied;
+        date_interview = null;
+        date_accepted = null;
+        rejected = false;
     }
 
     //getter
@@ -50,4 +55,22 @@ public class Candidature {
     public void setDate_interview(Date date_interview) {
         this.date_interview = date_interview;
     }
+
+    public boolean isRejected() {
+        return rejected;
+    }
+
+    public void setRejected(boolean rejected) {
+        this.rejected = rejected;
+    }
+
+
+    public Date getDate_accepted() {
+        return date_accepted;
+    }
+
+    public void setDate_accepted(Date date_accepted) {
+        this.date_accepted = date_accepted;
+    }
+
 }

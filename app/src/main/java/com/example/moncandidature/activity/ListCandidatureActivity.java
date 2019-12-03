@@ -2,9 +2,11 @@ package com.example.moncandidature.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.moncandidature.R;
+import com.example.moncandidature.adapter.CandidatureItemAdapter;
 import com.example.moncandidature.models.Candidature;
 
 import android.os.Bundle;
+import android.widget.ListView;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -29,6 +31,12 @@ public class ListCandidatureActivity extends AppCompatActivity {
         candidatureList.add(new Candidature("Project Manager International Banking", "Natixis", calendar.getTime()));
         calendar.set(2019, 4, 23);
         candidatureList.add(new Candidature("International Relation Scrum Master", "Caisse Epargne", calendar.getTime()));
+
+
+        // listView
+
+        ListView lvCandidature = findViewById(R.id.listCandidature);
+        lvCandidature.setAdapter(new CandidatureItemAdapter(this, candidatureList));
 };
 
  }

@@ -7,7 +7,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 
 import com.example.moncandidature.R;
-import com.example.moncandidature.activity.LoginActivity;
+
 
 public class MainActivity extends AppCompatActivity {
 

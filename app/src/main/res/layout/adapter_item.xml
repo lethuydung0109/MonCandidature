@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_margin="10dp"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        tools:srcCompat="@tools:sample/avatars" />
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="15dp">
+
+        <TextView
+            android:id="@+id/item_cName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/item_default_cName"
+            android:textColor="@color/design_default_color_primary"
+            android:textSize="20dp"
+            ></TextView>
+
+        <TextView
+            android:id="@+id/item_pName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/item_default_pName"
+            android:layout_below="@id/item_cName"
+            android:textSize="16dp"
+            ></TextView>
+
+        <TextView
+            android:id="@+id/item_date_applied"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/item_pName"
+            android:text="@string/item_default_date_applied"
+            >
+        </TextView>
+
+        <TextView
+            android:id="@+id/item_status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/item_date_applied"
+            android:text="@string/item_default_status">
+        </TextView>
+
+    </RelativeLayout>
+
+
+</LinearLayout>
