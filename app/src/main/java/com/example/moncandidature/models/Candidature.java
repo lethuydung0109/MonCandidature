@@ -2,22 +2,36 @@ package com.example.moncandidature.models;
 
 import java.util.Date;
 
-public class Candidature {
+import io.realm.RealmObject;
+import io.realm.annotations.PrimaryKey;
 
-    String postName;
-    String company;
-    Date date_applied;
-    Date date_interview;
-    Date date_accepted;
-    boolean rejected;
+public class Candidature  extends RealmObject {
 
-    public Candidature(String pName, String cName, Date dApplied){
-        postName = pName;
-        company = cName;
+    @PrimaryKey int application_id;
+    public String postName;
+    public String company;
+    public Date date_applied;
+    public Date date_interview;
+    public Date date_accepted;
+    public boolean rejected;
+    public String link;
+    public String comment;
+    public Date date_reminder;
+
+    public Candidature() {
+    }
+
+    public Candidature(int application_id, String postName, String company,String link, String comment,Date dApplied,Date dInterview, Date dReview) {
+        this.application_id = application_id;
+        this.postName = postName;
+        this.company = company;
+        this.link = link;
+        this.comment = comment;
         date_applied = dApplied;
-        date_interview = null;
-        date_accepted = null;
-        rejected = false;
+        date_interview = dInterview;
+        date_accepted = dReview;
+        this.rejected = false;
+
     }
 
     //getter
@@ -38,6 +52,21 @@ public class Candidature {
         return date_interview;
     }
 
+    public int getApplication_id() {
+        return application_id;
+    }
+
+    public String getLink() {
+        return link;
+    }
+
+    public String getComment() {
+        return comment;
+    }
+
+    public Date getDate_reminder() {
+        return date_reminder;
+    }
 
     //setter
     public void setPostName(String postName) {
@@ -64,6 +93,21 @@ public class Candidature {
         this.rejected = rejected;
     }
 
+    public void setApplication_id(int application_id) {
+        this.application_id = application_id;
+    }
+
+    public void setLink(String link) {
+        this.link = link;
+    }
+
+    public void setComment(String comment) {
+        this.comment = comment;
+    }
+
+    public void setDate_reminder(Date date_reminder) {
+        this.date_reminder = date_reminder;
+    }
 
     public Date getDate_accepted() {
         return date_accepted;
@@ -73,4 +117,20 @@ public class Candidature {
         this.date_accepted = date_accepted;
     }
 
+
+    @Override
+    public String toString() {
+        return "Candidature{" +
+                "application_id=" + application_id +
+                ", postName='" + postName + '\'' +
+                ", company='" + company + '\'' +
+                ", date_applied=" + date_applied +
+                ", date_interview=" + date_interview +
+                ", date_accepted=" + date_accepted +
+                ", rejected=" + rejected +
+                ", link='" + link + '\'' +
+                ", comment='" + comment + '\'' +
+                ", date_reminder=" + date_reminder +
+                '}';
+    }
 }
