@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.view.Menu;
 import android.view.MenuItem;
 import androidx.appcompat.app.AppCompatActivity;
+
 import android.os.Bundle;
 
 import com.example.moncandidature.R;
@@ -11,14 +12,16 @@ import com.example.moncandidature.R;
 
 public class MainActivity extends AppCompatActivity {
 
+    //private Realm realm;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Intent intent = new Intent(this, LoginActivity.class);
+        Intent intent = new Intent(this, CandidatureActivity.class);
         startActivity(intent);
-        finish();
+        //finish();
     }
 
     @Override
@@ -42,4 +45,11 @@ public class MainActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
+//    @Override
+//    public void onDestroy()
+//    {
+//        super.onDestroy();
+//        realm.close();
+//    }
 }

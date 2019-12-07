@@ -14,11 +14,11 @@ import com.example.moncandidature.R;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import io.realm.Realm;
 
 public class LoginActivity extends AppCompatActivity {
     private static final String TAG = "LoginActivity";
     private static final int REQUEST_SIGNUP = 0;
-
     @BindView(R.id.input_email)
     EditText _emailText;
     @BindView(R.id.input_password) EditText _passwordText;
@@ -77,6 +77,7 @@ public class LoginActivity extends AppCompatActivity {
 
         // TODO: Implement your own authentication logic here.
 
+
         new android.os.Handler().postDelayed(
                 new Runnable() {
                     public void run() {
@@ -98,9 +99,12 @@ public class LoginActivity extends AppCompatActivity {
         if (requestCode == REQUEST_SIGNUP) {
             if (resultCode == RESULT_OK) {
 
+                Intent listCandidatureActivity = new Intent(getApplicationContext(), ListCandidatureActivity.class );
+                startActivity(listCandidatureActivity);
+                finish();
                 // TODO: Implement successful signup logic here
                 // By default we just finish the Activity and log them in automatically
-                this.finish();
+                //this.finish();
             }
         }
     }
