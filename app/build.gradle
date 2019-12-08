@@ -33,5 +33,6 @@ dependencies {
     implementation 'androidx.lifecycle:lifecycle-extensions:2.0.0'
     annotationProcessor 'com.jakewharton:butterknife-compiler:10.0.0'
     implementation 'com.google.android.material:material:1.0.0'
+    implementation 'io.realm:android-adapters:2.1.1'
 
 }

@@ -134,8 +134,8 @@
 
     <Button
         android:id="@+id/save"
-        android:layout_width="146dp"
-        android:layout_height="55dp"
+        android:layout_width="wrap_content"
+        android:layout_height="85dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
@@ -145,29 +145,47 @@
         android:layout_marginStart="221dp"
         android:layout_marginLeft="221dp"
         android:layout_marginTop="544dp"
-        android:layout_marginEnd="28dp"
-        android:layout_marginRight="28dp"
-        android:layout_marginBottom="117dp"
+        android:layout_marginEnd="44dp"
+        android:layout_marginRight="44dp"
+        android:layout_marginBottom="86dp"
         android:background="@color/design_default_color_primary"
         android:text="@string/save"
-        tools:ignore="UnknownId"></Button>
+        tools:ignore="UnknownId" />
 
-    <TextView
-        android:id="@+id/log"
-        android:layout_width="wrap_content"
-        android:layout_height="85dp"
+    <Button
+        android:id="@+id/showall"
+        android:layout_width="137dp"
+        android:layout_height="67dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
+        android:layout_marginStart="227dp"
+        android:layout_marginLeft="227dp"
+        android:layout_marginTop="648dp"
+        android:layout_marginEnd="31dp"
+        android:layout_marginRight="31dp"
+        android:layout_marginBottom="0dp"
+        android:background="@color/design_default_color_primary"
+        android:text="@string/showall"
+        tools:ignore="UnknownId" />
+
+    <TextView
+        android:id="@+id/log"
+        android:layout_width="192dp"
+        android:layout_height="159dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
         android:layout_marginStart="27dp"
         android:layout_marginLeft="27dp"
         android:layout_marginTop="548dp"
-        android:layout_marginEnd="171dp"
-        android:layout_marginRight="171dp"
-        android:layout_marginBottom="82dp"
+        android:layout_marginEnd="176dp"
+        android:layout_marginRight="176dp"
         android:text="Mes candidatures"
         android:textSize="19dp" />
 

@@ -58,7 +58,7 @@
             android:layout_height="wrap_content"
             android:text="@string/item_btn_modifier"
             android:layout_below="@id/item_status"
-        />
+            />
         <Button
             android:id="@+id/item_btn_delete"
             android:layout_width="wrap_content"
@@ -67,8 +67,5 @@
             android:layout_toRightOf="@id/item_btn_modifier"
             android:layout_alignBaseline="@id/item_btn_modifier"
             />
-
     </RelativeLayout>
-
-
 </LinearLayout>

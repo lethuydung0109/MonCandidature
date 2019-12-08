@@ -65,7 +65,12 @@ public class CandidatureItemAdapter extends BaseAdapter {
 
         pNameView.setText(pName);
         cNameView.setText(cName);
-        dateAppliedView.setText(df.format(date_applied));
+        if(date_applied != null){
+            dateAppliedView.setText(df.format(date_applied));
+        }else{
+            dateAppliedView.setText("No date available");
+        }
+
 
 
         if(date_accepted != null){

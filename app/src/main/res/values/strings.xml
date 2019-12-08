@@ -33,5 +33,6 @@
     <string name="date_rappel">Rappel le : </string>
     <string name="commentaires">Commentaires</string>
     <string name="save">Enregistrer</string>
+    <string name="showall">Show All</string>
 
 </resources>
