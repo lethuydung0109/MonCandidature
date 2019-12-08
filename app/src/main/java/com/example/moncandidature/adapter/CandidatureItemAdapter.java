@@ -12,6 +12,7 @@ import com.example.moncandidature.R;
 import com.example.moncandidature.activity.ListCandidatureActivity;
 import com.example.moncandidature.models.Candidature;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -43,6 +44,7 @@ public class CandidatureItemAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         convertView = inflater.inflate(R.layout.adapter_item, null);
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
 
         //get the current item
         Candidature currentItem = getItem(position);
@@ -63,7 +65,8 @@ public class CandidatureItemAdapter extends BaseAdapter {
 
         pNameView.setText(pName);
         cNameView.setText(cName);
-        dateAppliedView.setText(date_applied.toString());
+        dateAppliedView.setText(df.format(date_applied));
+
 
         if(date_accepted != null){
             status.setText("Accepted !");

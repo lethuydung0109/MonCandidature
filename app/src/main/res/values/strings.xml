@@ -16,6 +16,8 @@
     <string name="item_default_cName">Company Name</string>
     <string name="item_default_date_applied">Applied Date</string>
     <string name="item_default_status">Not contacted</string>
+    <string name="item_btn_modifier">Modifier</string>
+    <string name="item_btn_delete">Delete</string>
 
     <string name="name">name</string>
     <string name="mark">note</string>
@@ -32,4 +34,4 @@
     <string name="commentaires">Commentaires</string>
     <string name="save">Enregistrer</string>
 
-    </resources>
+</resources>
