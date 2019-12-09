@@ -64,7 +64,7 @@ public class CandidatureActivity extends AppCompatActivity {
                         , edittextDateR.getText().toString().trim()
                 );
 
-                affichageTxt.setText(realmAdapter.ShowAll());
+                affichageTxt.setText(realmAdapter.retrieveAllAsString());
 
             }
         });

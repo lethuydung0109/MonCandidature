@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.ListAdapter;
 import android.widget.TextView;
 
@@ -62,7 +63,11 @@ public class CandidatureItemAdapter extends BaseAdapter {
         TextView cNameView = convertView.findViewById(R.id.item_cName);
         TextView dateAppliedView = convertView.findViewById(R.id.item_date_applied);
         TextView status = convertView.findViewById(R.id.item_status);
+        Button modifier = convertView.findViewById(R.id.item_btn_modifier);
+        Button delete = convertView.findViewById(R.id.item_btn_delete);
 
+
+        // bind data to the view element
         pNameView.setText(pName);
         cNameView.setText(cName);
         if(date_applied != null){
@@ -70,8 +75,6 @@ public class CandidatureItemAdapter extends BaseAdapter {
         }else{
             dateAppliedView.setText("No date available");
         }
-
-
 
         if(date_accepted != null){
             status.setText("Accepted !");
@@ -84,6 +87,10 @@ public class CandidatureItemAdapter extends BaseAdapter {
         }else{
             status.setText("Not contacted yet");
         }
+
+        // set action onClick for two buttons
+
+
 
         return convertView;
     }

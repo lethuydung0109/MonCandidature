@@ -5,8 +5,11 @@ import com.example.moncandidature.R;
 import com.example.moncandidature.adapter.CandidatureItemAdapter;
 import com.example.moncandidature.helper.RealmAdapter;
 import com.example.moncandidature.models.Candidature;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ListView;
 import java.util.ArrayList;
 
@@ -17,6 +20,7 @@ public class ListCandidatureActivity extends AppCompatActivity {
 
     protected ArrayList<Candidature> candidatureList;
     protected  Realm realm;
+    FloatingActionButton btnToAddPage;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,13 +37,25 @@ public class ListCandidatureActivity extends AppCompatActivity {
 
         RealmAdapter realmAdapter = new RealmAdapter(realm);
 
-        candidatureList = realmAdapter.RetrieveAll();
+        candidatureList = realmAdapter.retrieveAll();
 
         CandidatureItemAdapter itemAdapter = new CandidatureItemAdapter(this, candidatureList);
 
         // set List Item Adapter
         ListView listCandidate = findViewById(R.id.listCandidature);
         listCandidate.setAdapter(itemAdapter);
+
+        // set action for button
+
+        btnToAddPage = findViewById(R.id.fab_addPage);
+        btnToAddPage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), CandidatureActivity.class);
+                startActivity(intent);
+            }
+        });
+
 
     }
 

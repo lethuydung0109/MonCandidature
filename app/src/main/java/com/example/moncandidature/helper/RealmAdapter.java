@@ -63,7 +63,7 @@ public class RealmAdapter {
         realm.commitTransaction();
     }
 
-    public String ShowAll(){
+    public String retrieveAllAsString(){
 
         RealmResults <Candidature> candidatures= realm.where(Candidature.class).findAll();
         String show= "";
@@ -74,7 +74,7 @@ public class RealmAdapter {
 
     }
 
-    public ArrayList<Candidature> RetrieveAll(){
+    public ArrayList<Candidature> retrieveAll(){
 
         ArrayList<Candidature> listAllCandidature = new ArrayList<>();
         RealmResults <Candidature> candidatures= realm.where(Candidature.class).findAll();

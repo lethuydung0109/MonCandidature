@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".activity.MainActivity">
+
+
+    <EditText
+        android:id="@+id/id_candidature"
+        android:layout_width="250dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="20dp"
+        android:hint="N° candidature"
+        android:inputType="textPersonName"
+        android:paddingLeft="10dp"
+        android:layout_centerHorizontal="true"
+        />
+
+    <EditText
+        android:id="@+id/poste"
+        android:layout_width="250dp"
+        android:layout_height="50dp"
+        android:layout_below="@id/id_candidature"
+        android:layout_marginTop="10dp"
+        android:layout_centerHorizontal="true"
+        android:hint="Titre du poste"
+        android:inputType="textPersonName"
+        android:paddingLeft="10dp" />
+
+    <EditText
+        android:id="@+id/entreprise"
+        android:layout_width="250dp"
+        android:layout_height="50dp"
+        android:layout_below="@+id/poste"
+        android:layout_marginTop="10dp"
+        android:layout_centerHorizontal="true"
+        android:hint="Nom de l\'entreprise"
+        android:inputType="textPersonName"
+        android:paddingLeft="10dp" />
+
+    <EditText
+        android:id="@+id/lien"
+        android:layout_width="250dp"
+        android:layout_height="50dp"
+        android:layout_below="@+id/entreprise"
+        android:layout_marginTop="10dp"
+        android:layout_centerHorizontal="true"
+        android:hint="Lien de l'offre"
+        android:inputType="textUri|textPersonName"
+        android:paddingLeft="10dp" />
+
+
+    <EditText
+        android:id="@+id/date_candidature"
+        android:layout_width="150dp"
+        android:layout_height="50dp"
+        android:layout_below="@+id/lien"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="30dp"
+        android:clickable="false"
+        android:focusable="false"
+        android:hint="@string/date_candidature"
+        android:inputType="date" />
+
+    <EditText
+        android:id="@+id/date_entretien"
+        android:layout_width="150dp"
+        android:layout_height="50dp"
+        android:layout_below="@+id/lien"
+        android:layout_toRightOf="@id/date_candidature"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginLeft="30dp"
+        android:hint="@string/date_entretien"
+        android:inputType="date" />
+
+    <EditText
+        android:id="@+id/date_rappel"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/date_candidature"
+        android:layout_marginTop="10dp"
+        android:ems="10"
+        android:layout_marginLeft="30dp"
+        android:hint="@string/date_rappel"
+        android:inputType="date|none" />
+
+    <EditText
+        android:id="@+id/commentaires"
+        android:layout_width="250dp"
+        android:layout_height="100dp"
+        android:layout_below="@+id/date_rappel"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:hint="Commentaires"
+        android:inputType="textPersonName"
+        android:paddingLeft="10dp" />
+
+    <Button
+        style="@style/Widget.AppCompat.Button.Colored"
+        android:id="@+id/save"
+        android:layout_width="120dp"
+        android:layout_height="50dp"
+        android:layout_below="@id/commentaires"
+        android:layout_marginLeft="250dp"
+        android:layout_marginTop="30dp"
+        android:text="@string/save"
+        tools:ignore="UnknownId" />
+
+    <Button
+        style="@style/Widget.AppCompat.Button.Colored"
+        android:id="@+id/showall"
+        android:layout_width="120dp"
+        android:layout_height="50dp"
+        android:layout_below="@id/save"
+        android:layout_marginLeft="250dp"
+        android:layout_marginTop="10dp"
+        android:text="@string/showall"
+        tools:ignore="UnknownId" />
+
+    <TextView
+        android:id="@+id/log"
+        android:layout_width="140dp"
+        android:layout_height="200dp"
+        android:layout_below="@id/commentaires"
+        android:layout_marginTop="30dp"
+        android:layout_marginLeft="30dp"
+        android:text="Log"
+        android:textSize="19dp" />
+
+
+
+
+
+</RelativeLayout>
