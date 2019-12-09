@@ -13,4 +13,12 @@
     <color name="base">#AAAAAA</color>
     <color name="iron">#CCCCCC</color>
     <color name="white">#FFFFFF</color>
+
+    <color name="violet">#6C0BA9</color>
+    <color name="violet_dark">#51087E</color>
+
+
+    <color name="lime_green">#81B622</color>
+    <color name="green">#59981A</color>
+    <color name="olive_green">#3D550C</color>
 </resources>

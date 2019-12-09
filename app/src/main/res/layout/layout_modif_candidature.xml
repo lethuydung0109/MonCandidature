@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".activity.CandidatureActivity">
+    tools:context=".activity.ModificationActivity">
 
     <ImageView
         android:layout_width="match_parent"
@@ -104,7 +104,6 @@
         android:inputType="textPersonName"
         android:paddingLeft="10dp" />
 
-
     <Button
         style="@style/Widget.MaterialComponents.Button"
         android:id="@+id/save"
@@ -112,9 +111,9 @@
         android:layout_height="50dp"
         android:layout_below="@id/commentaires"
         android:layout_marginTop="30dp"
-        android:textSize="16dp"
-        android:text="@string/save"
         android:layout_centerHorizontal="true"
+        android:textSize="18dp"
+        android:text="@string/save"
         tools:ignore="UnknownId" />
 
     <Button
@@ -123,11 +122,25 @@
         android:layout_width="200dp"
         android:layout_height="50dp"
         android:layout_below="@id/save"
+
         android:layout_marginTop="10dp"
-        android:text="@string/showall"
+        android:textSize="18dp"
         android:layout_centerHorizontal="true"
-        android:textSize="16dp"
+        android:text="@string/showall"
         tools:ignore="UnknownId" />
+
+    <CheckBox
+        android:id="@+id/rejected"
+        android:layout_width="150dp"
+        android:layout_height="50dp"
+        android:layout_toRightOf="@+id/date_rappel"
+        android:layout_below="@+id/date_candidature"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="30dp"
+        android:text="@string/label_rejected"
+        android:textSize="18dp"
+        android:textColor="@color/black"
+        />
 
 
 </RelativeLayout>

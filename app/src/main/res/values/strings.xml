@@ -34,5 +34,6 @@
     <string name="commentaires">Commentaires</string>
     <string name="save">Enregistrer</string>
     <string name="showall">Show All</string>
+    <string name="label_rejected">Refusé</string>
 
 </resources>

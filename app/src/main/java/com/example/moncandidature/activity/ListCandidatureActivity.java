@@ -1,6 +1,10 @@
 package com.example.moncandidature.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.example.moncandidature.R;
 import com.example.moncandidature.adapter.CandidatureItemAdapter;
 import com.example.moncandidature.helper.RealmAdapter;
@@ -9,7 +13,9 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
+import android.widget.AbsListView;
 import android.widget.ListView;
 import java.util.ArrayList;
 
@@ -21,6 +27,7 @@ public class ListCandidatureActivity extends AppCompatActivity {
     protected ArrayList<Candidature> candidatureList;
     protected  Realm realm;
     FloatingActionButton btnToAddPage;
+    RecyclerView recyclerView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,12 +45,22 @@ public class ListCandidatureActivity extends AppCompatActivity {
         RealmAdapter realmAdapter = new RealmAdapter(realm);
 
         candidatureList = realmAdapter.retrieveAll();
+        Log.i("List candidature = ", Integer.toString(candidatureList.size()));
 
+
+        // set up Recycler View
+
+        recyclerView = findViewById(R.id.rv_list_candidature);
         CandidatureItemAdapter itemAdapter = new CandidatureItemAdapter(this, candidatureList);
+        LinearLayoutManager lm= new LinearLayoutManager(this);
+        DividerItemDecoration dividerItemDecoration = new
+                DividerItemDecoration(recyclerView.getContext(), lm.getOrientation());
+        recyclerView.addItemDecoration(dividerItemDecoration);
+        recyclerView.setLayoutManager(lm);
+        recyclerView.setAdapter(itemAdapter);
+        recyclerView.setHasFixedSize(true);
 
-        // set List Item Adapter
-        ListView listCandidate = findViewById(R.id.listCandidature);
-        listCandidate.setAdapter(itemAdapter);
+
 
         // set action for button
 

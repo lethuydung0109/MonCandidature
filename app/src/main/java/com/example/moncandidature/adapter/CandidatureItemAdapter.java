@@ -1,97 +1,151 @@
 package com.example.moncandidature.adapter;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
-import android.widget.Button;
-import android.widget.ListAdapter;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.moncandidature.R;
-import com.example.moncandidature.activity.ListCandidatureActivity;
+
+import com.example.moncandidature.activity.ModificationActivity;
 import com.example.moncandidature.models.Candidature;
+import com.google.android.material.button.MaterialButton;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class CandidatureItemAdapter extends BaseAdapter {
+
+
+public class CandidatureItemAdapter extends RecyclerView.Adapter<CandidatureItemAdapter.ViewHolder> {
     private Context context;
-    private LayoutInflater inflater;
     private ArrayList<Candidature> candidatureList;
+
     public CandidatureItemAdapter(Context context, ArrayList<Candidature> candidatureList) {
         this.context = context;
         this.candidatureList = candidatureList;
-        this.inflater = LayoutInflater.from(context);
+    }
+
+
+    int clickedPosition= RecyclerView.NO_POSITION;
+    public int getClickedPosition(){
+        return clickedPosition;
+    }
+
+    private void setClickedPosition(int pos){
+        notifyItemChanged(clickedPosition);
+        clickedPosition=pos;
+        notifyItemChanged(clickedPosition);
+    }
+
+
+    @NonNull
+    @Override
+    public CandidatureItemAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        LayoutInflater li = LayoutInflater.from(parent.getContext());
+        View view= li.inflate(R.layout.adapter_item, parent,false);
+        return new ViewHolder(view) ;
     }
 
     @Override
-    public int getCount() {
-        return candidatureList.size();
-    }
+    public void onBindViewHolder(@NonNull CandidatureItemAdapter.ViewHolder holder, int position) {
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
 
-    @Override
-    public Candidature getItem(int position) {
-        return candidatureList.get(position);
+        Candidature candidature = candidatureList.get(position);
+        holder.pNameView.setText(candidature.getPostName());
+        holder.cNameView.setText(candidature.getCompany());
+        holder.dateAppliedView.setText(df.format(candidature.getDate_applied()));
+
+        if(candidature.getDate_applied()!= null && candidature.getDate_interview() == null){
+            holder.status.setText("Sent ! Not yet responsed");
+        }else if(candidature.getDate_interview() != null && candidature.getDate_interview().after(new Date())){
+            holder.status.setText("Wait for the next interview");
+        }else if(candidature.getDate_interview() != null && candidature.getDate_interview().before(new Date())){
+            holder.status.setText("Interviewed. Wait for the result");
+        }else if(candidature.isRejected()){
+            holder.status.setText("Rejected");
+        }else{
+            holder.status.setText("Not contacted yet");
+        }
+
+
+        holder.modifier.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // transfer data to another activity, then go to that activity
+                Context context = v.getContext();
+                String modId = Integer.toString(candidature.getApplication_id());
+                SharedPreferences sharedPref = context.getSharedPreferences("myKey", context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPref.edit();
+                editor.putString("id", modId);
+                editor.apply();
+                Intent intent = new Intent(v.getContext(), ModificationActivity.class);
+                v.getContext().startActivity(intent);
+            }
+        });
+
+        holder.delete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Context context = v.getContext();
+                AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                builder.setTitle("Confirm dialog demo !");
+                builder.setMessage("You are about to delete all records of database. Do you really want to proceed ?");
+                builder.setCancelable(false);
+                builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Toast.makeText(context, "You've choosen to delete all records", Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+                builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Toast.makeText(context, "You've changed your mind to delete all records", Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+                builder.show();
+            }
+        });
+
     }
 
     @Override
     public long getItemId(int position) {
-        return 0;
+        return candidatureList.get(position).getApplication_id();
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
-        convertView = inflater.inflate(R.layout.adapter_item, null);
-        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-
-        //get the current item
-        Candidature currentItem = getItem(position);
-
-        // get info for this item
-        String pName = currentItem.getPostName();
-        String cName = currentItem.getCompany();
-        Date date_applied = currentItem.getDate_applied();
-        Date date_interview = currentItem.getDate_interview();
-        Date date_accepted = currentItem.getDate_accepted();
-        boolean rejected = currentItem.isRejected();
-
-        // set to the view
-        TextView pNameView = convertView.findViewById(R.id.item_pName);
-        TextView cNameView = convertView.findViewById(R.id.item_cName);
-        TextView dateAppliedView = convertView.findViewById(R.id.item_date_applied);
-        TextView status = convertView.findViewById(R.id.item_status);
-        Button modifier = convertView.findViewById(R.id.item_btn_modifier);
-        Button delete = convertView.findViewById(R.id.item_btn_delete);
-
-
-        // bind data to the view element
-        pNameView.setText(pName);
-        cNameView.setText(cName);
-        if(date_applied != null){
-            dateAppliedView.setText(df.format(date_applied));
-        }else{
-            dateAppliedView.setText("No date available");
-        }
-
-        if(date_accepted != null){
-            status.setText("Accepted !");
-        }else if(date_interview != null && date_interview.after(new Date())){
-            status.setText("Wait for the next interview");
-        }else if(date_interview != null && date_interview.before(new Date())){
-            status.setText("Interviewed. Wait for the result");
-        }else if(rejected){
-            status.setText("Rejected");
-        }else{
-            status.setText("Not contacted yet");
-        }
-
-        // set action onClick for two buttons
-
-
-
-        return convertView;
+    public int getItemCount() {
+        return candidatureList.size();
     }
+
+    // class pour le layout
+    public static class ViewHolder extends RecyclerView.ViewHolder {
+        TextView pNameView, cNameView, dateAppliedView, status;
+        MaterialButton modifier, delete;
+
+        public ViewHolder(@NonNull View itemView) {
+            super(itemView);
+            pNameView = itemView.findViewById(R.id.item_pName);
+            cNameView = itemView.findViewById(R.id.item_cName);
+            dateAppliedView = itemView.findViewById(R.id.item_date_applied);
+            status = itemView.findViewById(R.id.item_status);
+            modifier = itemView.findViewById(R.id.item_btn_modifier);
+            delete = itemView.findViewById(R.id.item_btn_delete);
+
+        }
+    }
+
 }

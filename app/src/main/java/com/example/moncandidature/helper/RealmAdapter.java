@@ -96,6 +96,53 @@ public class RealmAdapter {
                 realm.commitTransaction();
             }
         }
+
+    }
+
+
+    public void UpdateData(String parseInt, String trim, String trim1, String trim2,String trim3, String trim4,String trim5, String trim6){
+        realm.beginTransaction();
+        RealmResults<Candidature> candidatures= realm.where(Candidature.class).findAll();
+        for (Candidature candidature: candidatures){
+            if(candidature.getApplication_id()== Integer.parseInt(parseInt)){
+                candidature.setPostName(trim);
+                candidature.setCompany(trim1);
+                candidature.setLink(trim2);
+                candidature.setComment(trim3);
+                try{
+                    candidature.setDate_applied(new SimpleDateFormat(this.myFormat).parse(trim4));
+                    candidature.setDate_interview(new SimpleDateFormat(this.myFormat).parse(trim5));
+                    candidature.setDate_reminder(new SimpleDateFormat(this.myFormat).parse(trim6));
+                }
+                catch (Exception e)
+                {
+                    System.out.println("Erreur!");
+                    System.err.println(e.getMessage());
+                }
+
+                realm.commitTransaction();
+            }
+        }
+
+    }
+
+    public Candidature searchById(int id){
+
+        RealmResults<Candidature> candidatures= realm.where(Candidature.class).findAll();
+        for (Candidature candidature: candidatures){
+            if(candidature.getApplication_id() == id ){
+                return candidature;
+            }
+        }
+
+        return null;
+    }
+
+    public void deleteById(int id){
+//        realm.beginTransaction();
+//        if (o.isValid()) o.deleteFromRealm();
+//        realm.commitTransaction();
+        // to implement
     }
 
     public void deleteAll(){

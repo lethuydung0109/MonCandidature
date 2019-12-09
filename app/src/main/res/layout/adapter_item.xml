@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_margin="15dp"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <ImageView
         android:id="@+id/imageView"
@@ -12,60 +13,66 @@
         android:layout_margin="10dp"
         tools:srcCompat="@tools:sample/avatars" />
 
-    <RelativeLayout
+    <TextView
+        android:id="@+id/item_cName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="15dp">
+        android:layout_marginLeft="120dp"
+        android:text="@string/item_default_cName"
+        android:textColor="@color/design_default_color_primary"
+        android:textSize="20dp"
+        />
 
-        <TextView
-            android:id="@+id/item_cName"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/item_default_cName"
-            android:textColor="@color/design_default_color_primary"
-            android:textSize="20dp"
-            />
+    <TextView
+        android:id="@+id/item_pName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="120dp"
+        android:text="@string/item_default_pName"
+        android:layout_below="@id/item_cName"
+        android:textSize="16dp"
+        />
 
-        <TextView
-            android:id="@+id/item_pName"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/item_default_pName"
-            android:layout_below="@id/item_cName"
-            android:textSize="16dp"
-            />
+    <TextView
+        android:id="@+id/item_date_applied"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="120dp"
+        android:layout_below="@id/item_pName"
+        android:text="@string/item_default_date_applied"
+        >
+    </TextView>
 
-        <TextView
-            android:id="@+id/item_date_applied"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/item_pName"
-            android:text="@string/item_default_date_applied"
-            >
-        </TextView>
+    <TextView
+        android:id="@+id/item_status"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="120dp"
+        android:layout_below="@id/item_date_applied"
+        android:text="@string/item_default_status">
+    </TextView>
 
-        <TextView
-            android:id="@+id/item_status"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/item_date_applied"
-            android:text="@string/item_default_status">
-        </TextView>
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/item_btn_modifier"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="@style/Widget.MaterialComponents.Button.TextButton"
+        android:layout_marginLeft="120dp"
+        android:text="@string/item_btn_modifier"
+        android:textSize="16dp"
+        android:layout_below="@id/item_status"
+        />
 
-        <Button
-            android:id="@+id/item_btn_modifier"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/item_btn_modifier"
-            android:layout_below="@id/item_status"
-            />
-        <Button
-            android:id="@+id/item_btn_delete"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/item_btn_delete"
-            android:layout_toRightOf="@id/item_btn_modifier"
-            android:layout_alignBaseline="@id/item_btn_modifier"
-            />
-    </RelativeLayout>
-</LinearLayout>
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/item_btn_delete"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:text="@string/item_btn_delete"
+        style="@style/Widget.MaterialComponents.Button.TextButton"
+        android:layout_toRightOf="@id/item_btn_modifier"
+        android:textSize="16dp"
+        android:layout_alignBaseline="@id/item_btn_modifier"
+        />
+</RelativeLayout>
+

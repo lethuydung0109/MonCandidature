@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="AppTheme" parent="Theme.MaterialComponents">
+        <!-- Customize your theme here. -->
+        <item name="colorControlNormal">@color/violet</item>
+        <item name="colorPrimary">@color/violet</item>
+        <item name="colorPrimaryDark">@color/violet_dark</item>
+        <item name="android:textColorPrimary">@color/accent</item>
+        <item name="android:windowLightStatusBar">false</item>
+        <item name="android:textColorSecondary">#295055</item>
+        <item name="android:windowBackground">@color/accent</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textColorHint">@color/iron</item>
+        <item name="android:editTextColor">@color/black</item>
+
+    </style>
+</resources>
