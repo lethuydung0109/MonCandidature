@@ -1,6 +1,7 @@
 package com.example.moncandidature.helper;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.example.moncandidature.models.Candidature;
 
@@ -74,15 +75,10 @@ public class RealmAdapter {
 
     }
 
-    public ArrayList<Candidature> retrieveAll(){
+    public RealmResults<Candidature> retrieveAll(){
 
-        ArrayList<Candidature> listAllCandidature = new ArrayList<>();
         RealmResults <Candidature> candidatures= realm.where(Candidature.class).findAll();
-        for (Candidature candidature : candidatures) {
-            listAllCandidature.add(candidature);
-        }
-        return listAllCandidature;
-
+        return candidatures;
     }
     public void UpdateData(Candidature c){
         realm.beginTransaction();
@@ -139,10 +135,19 @@ public class RealmAdapter {
     }
 
     public void deleteById(int id){
-//        realm.beginTransaction();
-//        if (o.isValid()) o.deleteFromRealm();
-//        realm.commitTransaction();
-        // to implement
+        RealmResults<Candidature> candidatures= realm.where(Candidature.class).findAll();
+        for (Candidature candidature: candidatures){
+
+            if(candidature.getApplication_id() == id) {
+                Log.i("RealAdapter - delete", "Found object with id = " + candidature.getApplication_id());
+                realm.beginTransaction();
+                candidature.deleteFromRealm();
+                realm.commitTransaction();
+                Log.i("RealAdapter - delete", "Deleted object id = " + id);
+
+            }
+        }
+
     }
 
     public void deleteAll(){

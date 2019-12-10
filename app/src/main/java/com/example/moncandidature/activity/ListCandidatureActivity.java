@@ -21,37 +21,33 @@ import java.util.ArrayList;
 
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
+import io.realm.RealmResults;
 
 public class ListCandidatureActivity extends AppCompatActivity {
 
-    protected ArrayList<Candidature> candidatureList;
+    protected RealmResults<Candidature> candidatureList;
     protected  Realm realm;
+    private String realmName = "myrealm.realm";
     FloatingActionButton btnToAddPage;
     RecyclerView recyclerView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list_candidature);
 
-        // get realm object
-        Realm.init(this);
-        RealmConfiguration config = new RealmConfiguration.Builder().name("myrealm.realm").build();
-        Realm.setDefaultConfiguration(config);
-
-        realm = Realm.getDefaultInstance();
 
         // get Realm Adapter
 
-        RealmAdapter realmAdapter = new RealmAdapter(realm);
+        RealmAdapter realmAdapter = new RealmAdapter(realmName, getApplicationContext());
 
         candidatureList = realmAdapter.retrieveAll();
         Log.i("List candidature = ", Integer.toString(candidatureList.size()));
 
-
         // set up Recycler View
 
         recyclerView = findViewById(R.id.rv_list_candidature);
-        CandidatureItemAdapter itemAdapter = new CandidatureItemAdapter(this, candidatureList);
+        CandidatureItemAdapter itemAdapter = new CandidatureItemAdapter(candidatureList);
         LinearLayoutManager lm= new LinearLayoutManager(this);
         DividerItemDecoration dividerItemDecoration = new
                 DividerItemDecoration(recyclerView.getContext(), lm.getOrientation());
