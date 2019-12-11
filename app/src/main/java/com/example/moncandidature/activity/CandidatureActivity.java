@@ -15,6 +15,7 @@ import com.example.moncandidature.helper.RealmAdapter;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
+import java.util.regex.Pattern;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -52,23 +53,7 @@ public class CandidatureActivity extends AppCompatActivity {
         commentaire= (EditText) findViewById(R.id.commentaires);
 
         save= findViewById(R.id.save);
-        save.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                realmAdapter.addToSGBD(id_candidature.getText().toString().trim()
-                        , poste.getText().toString().trim()
-                        , entreprise.getText().toString().trim()
-                        , url.getText().toString().trim()
-                        , commentaire.getText().toString().trim()
-                        , edittextDateC.getText().toString().trim()
-                        , edittextDateE.getText().toString().trim()
-                        , edittextDateR.getText().toString().trim()
-                );
 
-                Toast.makeText(getApplicationContext(),"Candidature enregistré ",Toast.LENGTH_SHORT).show();
-
-            }
-        });
 
         showall = findViewById(R.id.showall);
         showall.setOnClickListener(new View.OnClickListener() {
@@ -150,6 +135,31 @@ public class CandidatureActivity extends AppCompatActivity {
             }
         });
 
+        save.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if(isNumeric(id_candidature.getText().toString())){
+                    realmAdapter.addToSGBD(id_candidature.getText().toString().trim()
+                            , poste.getText().toString().trim()
+                            , entreprise.getText().toString().trim()
+                            , url.getText().toString().trim()
+                            , commentaire.getText().toString().trim()
+                            , edittextDateC.getText().toString().trim()
+                            , edittextDateE.getText().toString().trim()
+                            , edittextDateR.getText().toString().trim()
+                    );
+
+                    Toast.makeText(getApplicationContext(),"Candidature enregistré ",Toast.LENGTH_SHORT).show();
+                }else{
+                    id_candidature.setError("Enter an numeric value for application id !");
+                    Toast.makeText(getApplicationContext(),"Numeric value required ! ",Toast.LENGTH_SHORT).show();
+                }
+
+
+            }
+        });
+
     }
 
     private void updateLabelDateC() {
@@ -167,6 +177,15 @@ public class CandidatureActivity extends AppCompatActivity {
     private void updateLabelDateR() {
         SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.FRANCE);
         edittextDateR.setText(sdf.format(myCalendar.getTime()));
+    }
+
+    private Pattern pattern = Pattern.compile("-?\\d+(\\.\\d+)?");
+
+    public boolean isNumeric(String strNum) {
+        if (strNum == null) {
+            return false;
+        }
+        return pattern.matcher(strNum).matches();
     }
 
 }
