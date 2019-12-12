@@ -1,10 +1,15 @@
 package com.example.moncandidature.activity;
+import android.app.AlarmManager;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
+import android.app.Notification;
+import android.app.PendingIntent;
 import android.app.TimePickerDialog;
+import android.content.Context;
 import android.content.Intent;
-import android.content.res.Resources;
 import android.os.Bundle;
+import android.os.SystemClock;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -12,17 +17,18 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
-
-import com.allyants.notifyme.NotifyMe;
 import com.example.moncandidature.R;
 import com.example.moncandidature.helper.RealmAdapter;
+import com.example.moncandidature.receiver.NotificationPublisher;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.Locale;
 import java.util.regex.Pattern;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NotificationCompat;
 
 public class CandidatureActivity extends AppCompatActivity {
     String realmName = "myrealm.realm";
@@ -41,6 +47,8 @@ public class CandidatureActivity extends AppCompatActivity {
     private EditText edittextDateE;
     private EditText edittextDateR;
 
+    public static final String NOTIFICATION_CHANNEL_ID = "10001" ;
+    private final static String default_notification_channel_id = "default" ;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -102,17 +110,13 @@ public class CandidatureActivity extends AppCompatActivity {
             public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
                 myCalendar.set(Calendar.HOUR_OF_DAY, hourOfDay);
                 myCalendar.set(Calendar.MINUTE, minute);
-                NotifyMe.Builder notifyMe = new NotifyMe.Builder(getApplicationContext())
-                        .title("Mon Candidature - " + poste.getText().toString() + " @ " + entreprise.getText().toString())
-                        .content("Your application is set to remind you today")
-                        .time(myCalendar)
-                        .color(255,0,0,255)
-                        .led_color(255, 255, 255, 255)
-                        .addAction(new Intent(), "Snooze", false)
-                        .addAction(new Intent(), "Dismiss", false)
-                        .addAction(new Intent(), "Done", false)
-                        .large_icon(R.drawable.logo);
-                notifyMe.build();
+
+                Date date = myCalendar.getTime() ;
+                SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyy HH:mm:ss", Locale.FRANCE);
+                Log.i("onTimeSet", Long.toString(date.getTime()));
+                Log.i("onTimeSet", sdf.format(date).toString());
+                scheduleNotification(getNotification("Remind : " + poste.getText().toString()
+                        + " @ " + entreprise.getText().toString() + " applied on " + edittextDateC.getText().toString()), date.getTime());
 
             }
         };
@@ -172,8 +176,6 @@ public class CandidatureActivity extends AppCompatActivity {
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-
                 if(isNumeric(id_candidature.getText().toString())){
                     realmAdapter.addToSGBD(id_candidature.getText().toString().trim()
                             , poste.getText().toString().trim()
@@ -190,8 +192,6 @@ public class CandidatureActivity extends AppCompatActivity {
                     id_candidature.setError("Enter an numeric value for application id !");
                     Toast.makeText(getApplicationContext(),"Numeric value required ! ",Toast.LENGTH_SHORT).show();
                 }
-
-
             }
         });
 
@@ -221,6 +221,31 @@ public class CandidatureActivity extends AppCompatActivity {
             return false;
         }
         return pattern.matcher(strNum).matches();
+    }
+
+    private void scheduleNotification(Notification notification, long delay) {
+
+        Intent notificationIntent = new Intent( this, NotificationPublisher.class ) ;
+        notificationIntent.putExtra(NotificationPublisher.NOTIFICATION_ID , 1 ) ;
+        notificationIntent.putExtra(NotificationPublisher.NOTIFICATION , notification) ;
+        PendingIntent pendingIntent = PendingIntent. getBroadcast ( this, 0 ,
+                notificationIntent ,
+                PendingIntent. FLAG_UPDATE_CURRENT ) ;
+        AlarmManager alarmManager = (AlarmManager) getSystemService(Context. ALARM_SERVICE ) ;
+        assert alarmManager != null;
+        alarmManager.set(AlarmManager.RTC_WAKEUP, delay , pendingIntent) ;
+    }
+
+    private Notification getNotification(String content) {
+        NotificationCompat.Builder builder = new NotificationCompat.Builder( this, default_notification_channel_id ) ;
+        builder.setContentTitle( "Remind: Application to be reminded" ) ;
+        builder.setStyle(new NotificationCompat.BigTextStyle()
+                .bigText(content)) ;
+        builder.setSmallIcon(R.drawable.ic_launcher_foreground) ;
+        builder.setAutoCancel( true ) ;
+        builder.setChannelId( NOTIFICATION_CHANNEL_ID ) ;
+        Log.i("Check Notification: ", "Inside getNotification - " + content );
+        return builder.build() ;
     }
 
 }

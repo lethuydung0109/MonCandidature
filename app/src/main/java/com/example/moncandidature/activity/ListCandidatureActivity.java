@@ -2,7 +2,6 @@ package com.example.moncandidature.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.NotificationCompat;
-import androidx.core.app.NotificationManagerCompat;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -26,12 +25,7 @@ import android.os.Bundle;
 import android.os.SystemClock;
 import android.util.Log;
 import android.view.View;
-import android.widget.AbsListView;
-import android.widget.ListView;
-import java.util.ArrayList;
-
 import io.realm.Realm;
-import io.realm.RealmConfiguration;
 import io.realm.RealmResults;
 
 public class ListCandidatureActivity extends AppCompatActivity {
@@ -40,7 +34,6 @@ public class ListCandidatureActivity extends AppCompatActivity {
     protected  Realm realm;
     private String realmName = "myrealm.realm";
     FloatingActionButton btnToAddPage;
-    FloatingActionButton btnToNotify;
     RecyclerView recyclerView;
 
     private final String CHANNEL_ID = "reminder_notification";
@@ -85,41 +78,24 @@ public class ListCandidatureActivity extends AppCompatActivity {
             }
         });
 
-        //set action for notify test
 
-        btnToNotify = findViewById(R.id.fab_test_noti);
-        btnToNotify.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // to send a direct notification
-//                createNotificationChannel();
-//                NotificationCompat.Builder builder = new NotificationCompat.Builder(getApplicationContext(), CHANNEL_ID)
-//                        .setSmallIcon(R.drawable.icon_notif)
-//                        .setContentTitle("Title")
-//                        .setContentText("Test notification")
-//                        .setPriority(NotificationCompat.PRIORITY_DEFAULT);
-//                NotificationManagerCompat notificationManagerCompat = NotificationManagerCompat.from(getApplicationContext());
-//                notificationManagerCompat.notify(NOTIFICATION_ID, builder.build());
-
-                // to to schedule a notification
-                scheduleNotification(getNotification("5 second delay"), 5000);
-
-            }
-        });
 
 
     }
 
     private void scheduleNotification(Notification notification, int delay) {
 
-        Intent notificationIntent = new Intent( this, NotificationPublisher. class ) ;
-        notificationIntent.putExtra(NotificationPublisher. NOTIFICATION_ID , 1 ) ;
-        notificationIntent.putExtra(NotificationPublisher. NOTIFICATION , notification) ;
-        PendingIntent pendingIntent = PendingIntent. getBroadcast ( this, 0 , notificationIntent , PendingIntent. FLAG_UPDATE_CURRENT ) ;
+        Intent notificationIntent = new Intent( this, NotificationPublisher.class ) ;
+        notificationIntent.putExtra(NotificationPublisher.NOTIFICATION_ID , 1 ) ;
+        notificationIntent.putExtra(NotificationPublisher.NOTIFICATION , notification) ;
+        PendingIntent pendingIntent = PendingIntent. getBroadcast ( this, 0 ,
+                                                                    notificationIntent ,
+                                                                    PendingIntent. FLAG_UPDATE_CURRENT ) ;
         long futureInMillis = SystemClock. elapsedRealtime () + delay ;
         AlarmManager alarmManager = (AlarmManager) getSystemService(Context. ALARM_SERVICE ) ;
         assert alarmManager != null;
         alarmManager.set(AlarmManager. ELAPSED_REALTIME_WAKEUP , futureInMillis , pendingIntent) ;
+        Log.i("Check Notification: ", "Inside scheduleNotification " );
     }
 
     private Notification getNotification(String content) {
@@ -129,6 +105,7 @@ public class ListCandidatureActivity extends AppCompatActivity {
         builder.setSmallIcon(R.drawable.ic_launcher_foreground) ;
         builder.setAutoCancel( true ) ;
         builder.setChannelId( NOTIFICATION_CHANNEL_ID ) ;
+        Log.i("Check Notification: ", "Inside getNotification - " + content );
         return builder.build() ;
     }
 
