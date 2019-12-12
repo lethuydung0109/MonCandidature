@@ -1,6 +1,7 @@
 package com.example.moncandidature.activity;
 
 import android.app.DatePickerDialog;
+import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -9,11 +10,13 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
 
+import com.allyants.notifyme.NotifyMe;
 import com.example.moncandidature.R;
 import com.example.moncandidature.helper.RealmAdapter;
 import com.example.moncandidature.models.Candidature;
@@ -91,7 +94,25 @@ public class ModificationActivity extends AppCompatActivity {
                 updateLabelDateE();
             }
         };
+        TimePickerDialog.OnTimeSetListener time3 = new TimePickerDialog.OnTimeSetListener() {
+            @Override
+            public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+                myCalendar.set(Calendar.HOUR_OF_DAY, hourOfDay);
+                myCalendar.set(Calendar.MINUTE, minute);
 
+                NotifyMe.Builder notifyMe = new NotifyMe.Builder(getApplicationContext())
+                        .title("Mon Candidature - " + poste.getText().toString() + " @ " + entreprise.getText().toString())
+                        .content("Your application is set to remind you today")
+                        .time(myCalendar)
+                        .color(255,0,0,255)
+                        .led_color(255, 255, 255, 255)
+                        .addAction(new Intent(), "Snooze", false)
+                        .addAction(new Intent(), "Dismiss", false)
+                        .addAction(new Intent(), "Done", false)
+                        .large_icon(R.drawable.logo);
+                notifyMe.build();
+            }
+        };
         DatePickerDialog.OnDateSetListener date3 = new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year, int monthOfYear,
@@ -100,7 +121,15 @@ public class ModificationActivity extends AppCompatActivity {
                 myCalendar.set(Calendar.YEAR, year);
                 myCalendar.set(Calendar.MONTH, monthOfYear);
                 myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+
                 updateLabelDateR();
+
+                new TimePickerDialog(ModificationActivity.this, android.R.style.Theme_DeviceDefault_Light_Dialog, time3, myCalendar
+                        .get(Calendar.HOUR), myCalendar.get(Calendar.MINUTE), true).show();
+
+
+
+
             }
         };
 
@@ -108,7 +137,7 @@ public class ModificationActivity extends AppCompatActivity {
 
             @Override
             public void onClick(View v) {
-                new DatePickerDialog(ModificationActivity.this, date1, myCalendar
+                new DatePickerDialog(ModificationActivity.this, android.R.style.Theme_DeviceDefault_Light_Dialog, date1, myCalendar
                         .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
                         myCalendar.get(Calendar.DAY_OF_MONTH)).show();
             }
@@ -118,7 +147,7 @@ public class ModificationActivity extends AppCompatActivity {
 
             @Override
             public void onClick(View v) {
-                new DatePickerDialog(ModificationActivity.this, date2, myCalendar
+                new DatePickerDialog(ModificationActivity.this, android.R.style.Theme_DeviceDefault_Light_Dialog, date2, myCalendar
                         .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
                         myCalendar.get(Calendar.DAY_OF_MONTH)).show();
             }
@@ -129,7 +158,7 @@ public class ModificationActivity extends AppCompatActivity {
 
             @Override
             public void onClick(View v) {
-                new DatePickerDialog(ModificationActivity.this, date3, myCalendar
+                new DatePickerDialog(ModificationActivity.this, android.R.style.Theme_DeviceDefault_Light_Dialog, date3, myCalendar
                         .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
                         myCalendar.get(Calendar.DAY_OF_MONTH)).show();
             }

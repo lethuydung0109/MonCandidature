@@ -3,7 +3,7 @@
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.MaterialComponents">
         <!-- Customize your theme here. -->
-        <item name="colorControlNormal">@color/violet</item>
+        <item name="colorControlNormal">@color/lime_green</item>
         <item name="colorPrimary">@color/violet</item>
         <item name="android:textColorPrimary">@color/accent</item>
         <item name="android:statusBarColor">@color/violet_dark</item>
@@ -16,8 +16,9 @@
         <item name="android:listDivider">@drawable/divider_gray</item>
 
 
-
     </style>
+
+
 
     <style name="AppTheme.Dark" parent="Theme.AppCompat.NoActionBar">
         <item name="colorPrimary">@color/primary</item>

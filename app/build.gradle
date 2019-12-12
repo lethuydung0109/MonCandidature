@@ -34,5 +34,7 @@ dependencies {
     annotationProcessor 'com.jakewharton:butterknife-compiler:10.0.0'
     implementation 'com.google.android.material:material:1.0.0'
     implementation 'io.realm:android-adapters:2.1.1'
+    implementation 'com.github.jakebonk:NotifyMe:1.0.1'
+
 
 }
