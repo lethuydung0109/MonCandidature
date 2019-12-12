@@ -1,6 +1,8 @@
 package com.example.moncandidature.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -9,10 +11,19 @@ import com.example.moncandidature.R;
 import com.example.moncandidature.adapter.CandidatureItemAdapter;
 import com.example.moncandidature.helper.RealmAdapter;
 import com.example.moncandidature.models.Candidature;
+import com.example.moncandidature.receiver.NotificationPublisher;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import android.app.AlarmManager;
+import android.app.Notification;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.util.Log;
 import android.view.View;
 import android.widget.AbsListView;
@@ -29,7 +40,12 @@ public class ListCandidatureActivity extends AppCompatActivity {
     protected  Realm realm;
     private String realmName = "myrealm.realm";
     FloatingActionButton btnToAddPage;
+    FloatingActionButton btnToNotify;
     RecyclerView recyclerView;
+
+    private final String CHANNEL_ID = "reminder_notification";
+    public static final String NOTIFICATION_CHANNEL_ID = "10001" ;
+    private final static String default_notification_channel_id = "default" ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,7 +85,65 @@ public class ListCandidatureActivity extends AppCompatActivity {
             }
         });
 
+        //set action for notify test
 
+        btnToNotify = findViewById(R.id.fab_test_noti);
+        btnToNotify.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // to send a direct notification
+//                createNotificationChannel();
+//                NotificationCompat.Builder builder = new NotificationCompat.Builder(getApplicationContext(), CHANNEL_ID)
+//                        .setSmallIcon(R.drawable.icon_notif)
+//                        .setContentTitle("Title")
+//                        .setContentText("Test notification")
+//                        .setPriority(NotificationCompat.PRIORITY_DEFAULT);
+//                NotificationManagerCompat notificationManagerCompat = NotificationManagerCompat.from(getApplicationContext());
+//                notificationManagerCompat.notify(NOTIFICATION_ID, builder.build());
+
+                // to to schedule a notification
+                scheduleNotification(getNotification("5 second delay"), 5000);
+
+            }
+        });
+
+
+    }
+
+    private void scheduleNotification(Notification notification, int delay) {
+
+        Intent notificationIntent = new Intent( this, NotificationPublisher. class ) ;
+        notificationIntent.putExtra(NotificationPublisher. NOTIFICATION_ID , 1 ) ;
+        notificationIntent.putExtra(NotificationPublisher. NOTIFICATION , notification) ;
+        PendingIntent pendingIntent = PendingIntent. getBroadcast ( this, 0 , notificationIntent , PendingIntent. FLAG_UPDATE_CURRENT ) ;
+        long futureInMillis = SystemClock. elapsedRealtime () + delay ;
+        AlarmManager alarmManager = (AlarmManager) getSystemService(Context. ALARM_SERVICE ) ;
+        assert alarmManager != null;
+        alarmManager.set(AlarmManager. ELAPSED_REALTIME_WAKEUP , futureInMillis , pendingIntent) ;
+    }
+
+    private Notification getNotification(String content) {
+        NotificationCompat.Builder builder = new NotificationCompat.Builder( this, default_notification_channel_id ) ;
+        builder.setContentTitle( "Scheduled Notification" ) ;
+        builder.setContentText(content) ;
+        builder.setSmallIcon(R.drawable.ic_launcher_foreground) ;
+        builder.setAutoCancel( true ) ;
+        builder.setChannelId( NOTIFICATION_CHANNEL_ID ) ;
+        return builder.build() ;
+    }
+
+    private void createNotificationChannel(){
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
+            CharSequence name = "Personal Notifications";
+            String description = "Include all personal notifications";
+            int importance = NotificationManager.IMPORTANCE_DEFAULT;
+
+            NotificationChannel notificationChannel = new NotificationChannel(CHANNEL_ID, name, importance);
+            notificationChannel.setDescription(description);
+
+            NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+            notificationManager.createNotificationChannel(notificationChannel);
+        }
     }
 
  }
